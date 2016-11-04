@@ -8,7 +8,6 @@
 #include <boost/mpicxx/collectives/all_reduce.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
 #include <vector>
 #include <algorithm>
 #include <boost/serialization/string.hpp>
@@ -16,7 +15,7 @@
 #include <boost/lexical_cast.hpp>
 #include <numeric>
 
-using boost::mpicxx::communicator;
+namespace mpi = boost::mpicxx;
 
 // A simple point class that we can build, add, compare, and
 // serialize.
@@ -76,17 +75,25 @@ namespace boost { namespace mpicxx {
 
 } } // end namespace boost::mpicxx
 
+void
+check_test(mpi::communicator const& comm, bool cond) {
+  if (!cond) {
+    std::abort();
+  } else {
+    if (comm.rank() == 0) {
+      std::cout << "OK\n";
+    }
+  }
+}
+
 template<typename Generator, typename Op>
 void
-all_reduce_one_test(const communicator& comm, Generator generator,
+all_reduce_one_test(const mpi::communicator& comm, Generator generator,
                     const char* type_kind, Op op, const char* op_kind,
                     typename Generator::result_type init, bool in_place)
 {
   typedef typename Generator::result_type value_type;
   value_type value = generator(comm.rank());
-
-  using boost::mpicxx::all_reduce;
-  using boost::mpicxx::inplace;
 
   if (comm.rank() == 0) {
     std::cout << "Reducing to " << op_kind << " of " << type_kind << "...";
@@ -95,10 +102,10 @@ all_reduce_one_test(const communicator& comm, Generator generator,
 
   value_type result_value;
   if (in_place) {
-    all_reduce(comm, inplace(value), op);
+    mpi::all_reduce(comm, mpi::inplace(value), op);
     result_value = value;
   } else {
-    result_value = all_reduce(comm, value, op);
+    result_value = mpi::all_reduce(comm, value, op);
   }
   
   // Compute expected result
@@ -108,25 +115,20 @@ all_reduce_one_test(const communicator& comm, Generator generator,
   value_type expected_result = std::accumulate(generated_values.begin(),
                                                generated_values.end(),
                                                init, op);
-  BOOST_CHECK(result_value == expected_result);
-  if (result_value == expected_result && comm.rank() == 0)
-    std::cout << "OK." << std::endl;
+  check_test(comm, result_value == expected_result);
 
   (comm.barrier)();
 }
 
 template<typename Generator, typename Op>
 void
-all_reduce_array_test(const communicator& comm, Generator generator,
+all_reduce_array_test(const mpi::communicator& comm, Generator generator,
                       const char* type_kind, Op op, const char* op_kind,
                       typename Generator::result_type init, bool in_place)
 {
   typedef typename Generator::result_type value_type;
   value_type value = generator(comm.rank());
   std::vector<value_type> send(10, value);
-
-  using boost::mpicxx::all_reduce;
-  using boost::mpicxx::inplace;
 
   if (comm.rank() == 0) {
       char const* place = in_place ? "in place" : "out of place";
@@ -135,11 +137,11 @@ all_reduce_array_test(const communicator& comm, Generator generator,
   }
   std::vector<value_type> result;
   if (in_place) {
-    all_reduce(comm, inplace(&(send[0])), send.size(), op);
+    mpi::all_reduce(comm, mpi::inplace(&(send[0])), send.size(), op);
     result.swap(send);
   } else {
     std::vector<value_type> recv(10, value_type());
-    all_reduce(comm, &(send[0]), send.size(), &(recv[0]), op);
+    mpi::all_reduce(comm, &(send[0]), send.size(), &(recv[0]), op);
     result.swap(recv);
   }
 
@@ -154,9 +156,7 @@ all_reduce_array_test(const communicator& comm, Generator generator,
   bool got_expected_result = (std::equal_range(result.begin(), result.end(), 
                                                expected_result)
                               == std::make_pair(result.begin(), result.end()));
-  BOOST_CHECK(got_expected_result);
-  if (got_expected_result && comm.rank() == 0)
-      std::cout << "OK." << std::endl;
+  check_test(comm, got_expected_result);
 
   (comm.barrier)();
 }
@@ -164,7 +164,7 @@ all_reduce_array_test(const communicator& comm, Generator generator,
 // Test the 4 families of all reduce: (value, array) X (in place, out of place)
 template<typename Generator, typename Op>
 void
-all_reduce_test(const communicator& comm, Generator generator,
+all_reduce_test(const mpi::communicator& comm, Generator generator,
                 const char* type_kind, Op op, const char* op_kind,
                 typename Generator::result_type init)
 {
@@ -276,12 +276,12 @@ struct is_commutative<std::plus<wrapped_int>, wrapped_int>
 
 } } // end namespace boost::mpicxx
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   using namespace boost::mpicxx;
   environment env(argc, argv);
 
-  communicator comm;
+  mpi::communicator comm;
 
   // Built-in MPI datatypes with built-in MPI operations
   all_reduce_test(comm, int_generator(), "integers", std::plus<int>(), "sum",
