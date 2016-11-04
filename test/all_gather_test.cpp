@@ -8,10 +8,10 @@
 
 #include <algorithm>
 
-#include <boost/mpi/collectives/all_gather.hpp>
-#include <boost/mpi/collectives/all_gatherv.hpp>
-#include <boost/mpi/environment.hpp>
-#include <boost/mpi/communicator.hpp>
+#include <boost/mpicxx/collectives/all_gather.hpp>
+#include <boost/mpicxx/collectives/all_gatherv.hpp>
+#include <boost/mpicxx/environment.hpp>
+#include <boost/mpicxx/communicator.hpp>
 #include <boost/test/minimal.hpp>
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
@@ -20,7 +20,7 @@
 
 #include "gps_position.hpp"
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 template<typename Generator>
 void
@@ -54,7 +54,7 @@ all_gatherv_test(const mpi::communicator& comm, Generator generator,
                  std::string kind)
 {
   typedef typename Generator::result_type value_type;
-  using boost::mpi::all_gatherv;
+  using boost::mpicxx::all_gatherv;
 
   std::vector<value_type> myvalues, expected, values;
   std::vector<int>        sizes;
@@ -132,7 +132,7 @@ struct string_list_generator
 
 int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env(argc, argv);
+  boost::mpicxx::environment env(argc, argv);
   mpi::communicator comm;
   all_gather_test(comm, int_generator(), "integers");
   all_gather_test(comm, gps_generator(), "GPS positions");

@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 // A test of the sendrecv() operation.
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/test/minimal.hpp>
 #include <vector>
 #include <algorithm>
@@ -14,7 +14,7 @@
 #include <boost/lexical_cast.hpp>
 #include <numeric>
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 struct blob {
   blob(int i) : value(i) {}

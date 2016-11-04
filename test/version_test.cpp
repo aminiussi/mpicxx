@@ -6,11 +6,11 @@
 
 // test mpi version
 
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/test/minimal.hpp>
 #include <iostream>
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 int
 test_main(int argc, char* argv[]) {

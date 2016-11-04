@@ -5,9 +5,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // A test of the broadcast() collective.
-#include <boost/mpi/collectives/broadcast.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/collectives/broadcast.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/test/minimal.hpp>
 
 #include <algorithm>
@@ -18,7 +18,7 @@
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/map.hpp>
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 typedef std::vector<std::map<int, double> > sparse;
 
@@ -26,7 +26,7 @@ template<typename T>
 void
 broadcast_test(const mpi::communicator& comm, const T& bc_value,
                std::string const& kind, int root) {
-  using boost::mpi::broadcast;
+  using boost::mpicxx::broadcast;
   
   T value;
   if (comm.rank() == root) {
@@ -60,7 +60,7 @@ broadcast_test(const mpi::communicator& comm, const T& bc_value,
 
 int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env(argc, argv);
+  boost::mpicxx::environment env(argc, argv);
 
   mpi::communicator comm;
   if (comm.size() == 1) {

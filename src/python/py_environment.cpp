@@ -15,12 +15,12 @@
 #include <locale>
 #include <string>
 #include <boost/python.hpp>
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 
 using namespace boost::python;
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 extern const char* environment_init_docstring;
 extern const char* environment_finalize_docstring;
@@ -120,4 +120,4 @@ void export_environment()
     scope().attr("io_rank") = object();
 }
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

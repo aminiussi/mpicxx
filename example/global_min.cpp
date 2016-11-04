@@ -7,10 +7,10 @@
 // An example using Boost.MPI's all_reduce() that compute the minimum
 // of each process's value and broadcast the result to all the processes.
 
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 #include <iostream>
 #include <cstdlib>
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 int main(int argc, char* argv[])
 {

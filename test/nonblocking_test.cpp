@@ -5,9 +5,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // A test of the nonblocking point-to-point operations.
-#include <boost/mpi/nonblocking.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/nonblocking.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/test/minimal.hpp>
 #include "gps_position.hpp"
 #include <boost/lexical_cast.hpp>
@@ -16,9 +16,9 @@
 #include <iterator>
 #include <algorithm>
 
-using boost::mpi::communicator;
-using boost::mpi::request;
-using boost::mpi::status;
+using boost::mpicxx::communicator;
+using boost::mpicxx::request;
+using boost::mpicxx::status;
 
 enum method_kind { 
   mk_wait_any, mk_test_any, mk_wait_all, mk_wait_all_keep, 
@@ -65,12 +65,12 @@ void
 nonblocking_test(const communicator& comm, const T* values, int num_values, 
                  const char* kind, method_kind method)
 {
-  using boost::mpi::wait_any;
-  using boost::mpi::test_any;
-  using boost::mpi::wait_all;
-  using boost::mpi::test_all;
-  using boost::mpi::wait_some;
-  using boost::mpi::test_some;
+  using boost::mpicxx::wait_any;
+  using boost::mpicxx::test_any;
+  using boost::mpicxx::wait_all;
+  using boost::mpicxx::test_all;
+  using boost::mpicxx::wait_some;
+  using boost::mpicxx::test_some;
 
   if (comm.rank() == 0) {
     std::cout << "Testing " << method_kind_names[method] 
@@ -222,7 +222,7 @@ nonblocking_test(const communicator& comm, const T* values, int num_values,
 
 int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env(argc, argv);
+  boost::mpicxx::environment env(argc, argv);
 
   communicator comm;
 

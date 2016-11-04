@@ -21,4 +21,4 @@ std::vector<int> extract_paused_ranks(int argc, char** argv);
  * Once the debugger has attached to the process, it is expected to 
  * set the local variable 'i' to 0 to let the process restarts.
  */
-void wait_for_debugger(std::vector<int> const& processes, boost::mpi::communicator const& comm);
+void wait_for_debugger(std::vector<int> const& processes, boost::mpicxx::communicator const& comm);

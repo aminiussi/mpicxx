@@ -10,10 +10,10 @@
  *
  *  This file provides datatypes support for Boost.MPI in Python.
  */
-#include <boost/mpi/python/serialize.hpp>
-#include <boost/mpi.hpp>
+#include <boost/mpicxx/python/serialize.hpp>
+#include <boost/mpicxx.hpp>
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 void export_datatypes()
 {
@@ -24,4 +24,4 @@ void export_datatypes()
   register_serialized(double(0.0), &PyFloat_Type);
 }
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

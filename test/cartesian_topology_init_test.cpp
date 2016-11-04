@@ -17,12 +17,12 @@
 #define BOOST_TEST_MODULE BoostMPI
 #include <boost/test/included/unit_test.hpp>
 
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/collectives.hpp>
-#include <boost/mpi/environment.hpp>
-#include <boost/mpi/cartesian_communicator.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/collectives.hpp>
+#include <boost/mpicxx/environment.hpp>
+#include <boost/mpicxx/cartesian_communicator.hpp>
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 
 BOOST_AUTO_TEST_CASE(cartesian_dimension_init)

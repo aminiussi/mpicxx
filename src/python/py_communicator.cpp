@@ -12,14 +12,14 @@
  *  Python.
  */
 #include <boost/python.hpp>
-#include <boost/mpi.hpp>
-#include <boost/mpi/python/serialize.hpp>
+#include <boost/mpicxx.hpp>
+#include <boost/mpicxx/python/serialize.hpp>
 #include "request_with_value.hpp"
 
 using namespace boost::python;
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 extern const char* communicator_docstring;
 extern const char* communicator_default_constructor_docstring;
@@ -130,4 +130,4 @@ void export_communicator()
   export_skeleton_and_content(comm);
 }
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

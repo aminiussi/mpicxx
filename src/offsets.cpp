@@ -5,9 +5,9 @@
 
 // Authors: Alain Miniussi
 
-#include <boost/mpi/detail/offsets.hpp>
+#include <boost/mpicxx/detail/offsets.hpp>
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 namespace detail {
 
 // Convert a sequence of sizes [S0..Sn] to a sequence displacement 

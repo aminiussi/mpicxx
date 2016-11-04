@@ -6,13 +6,13 @@
 
 // An example using Boost.MPI's gather(): [main]
 
-#include <boost/mpi.hpp>
-#include <boost/mpi/collectives.hpp>
+#include <boost/mpicxx.hpp>
+#include <boost/mpicxx/collectives.hpp>
 #include <iostream>
 #include <cstdlib>
 #include <vector>
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 int main(int argc, char* argv[])
 {

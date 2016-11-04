@@ -6,9 +6,9 @@
 // Use, modification and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#include <boost/mpi/exception.hpp>
+#include <boost/mpicxx/exception.hpp>
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 
 void
 exception::init() 
@@ -38,4 +38,4 @@ exception::exception(std::string const& routine, int result_code)
 
 exception::~exception() throw() { }
 
-} } // end namespace boost::mpi
+} } // end namespace boost::mpicxx

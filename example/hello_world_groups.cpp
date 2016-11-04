@@ -7,17 +7,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // A simple Hello world! example
-// using boost::mpi::group and boost::mpi::broadcast()
+// using boost::mpicxx::group and boost::mpicxx::broadcast()
 
 #include <stdexcept>
-#include <boost/mpi/environment.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/group.hpp>
-#include <boost/mpi/collectives.hpp>
+#include <boost/mpicxx/environment.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/group.hpp>
+#include <boost/mpicxx/collectives.hpp>
 
 #include <boost/serialization/string.hpp>
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 int main(int argc, char* argv[])
 {

@@ -10,8 +10,8 @@
  *
  *  This file reflects the skeleton/content facilities into Python.
  */
-#include <boost/mpi/python/skeleton_and_content.hpp>
-#include <boost/mpi/python/serialize.hpp>
+#include <boost/mpicxx/python/skeleton_and_content.hpp>
+#include <boost/mpicxx/python/serialize.hpp>
 #include <boost/python/list.hpp>
 #include <typeinfo>
 #include <list>
@@ -19,9 +19,9 @@
 #include "request_with_value.hpp"
 
 using namespace boost::python;
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 namespace detail {
   typedef std::map<PyTypeObject*, skeleton_content_handler>
@@ -54,7 +54,7 @@ str object_without_skeleton_str(const object_without_skeleton& e)
              "object that is not supported by the Boost.MPI skeleton/content\n"
              "mechanism. To transfer objects via skeleton/content, you must\n"
              "register the C++ type of this object with the C++ function:\n"
-             "  boost::mpi::python::register_skeleton_and_content()\n"
+             "  boost::mpicxx::python::register_skeleton_and_content()\n"
              "Object: " + str(e.value) + "\n");
 }
 
@@ -170,4 +170,4 @@ void export_skeleton_and_content(class_<communicator>& comm)
          );
 }
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

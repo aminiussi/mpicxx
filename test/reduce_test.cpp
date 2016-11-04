@@ -5,9 +5,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // A test of the reduce() collective.
-#include <boost/mpi/collectives/reduce.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/collectives/reduce.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/test/minimal.hpp>
 #include <algorithm>
 #include <boost/serialization/string.hpp>
@@ -15,7 +15,7 @@
 #include <boost/lexical_cast.hpp>
 #include <numeric>
 
-using boost::mpi::communicator;
+using boost::mpicxx::communicator;
 
 // A simple point class that we can build, add, compare, and
 // serialize.
@@ -58,12 +58,12 @@ point operator+(const point& p1, const point& p2)
   return point(p1.x + p2.x, p1.y + p2.y, p1.z + p2.z);
 }
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 
   template <>
   struct is_mpi_datatype<point> : public mpl::true_ { };
 
-} } // end namespace boost::mpi
+} } // end namespace boost::mpicxx
 
 template<typename Generator, typename Op>
 void
@@ -79,7 +79,7 @@ reduce_test(const communicator& comm, Generator generator,
     for (root = 0; root < comm.size(); ++root)
       reduce_test(comm, generator, type_kind, op, op_kind, init, root);
   } else {
-    using boost::mpi::reduce;
+    using boost::mpicxx::reduce;
 
     if (comm.rank() == root) {
       std::cout << "Reducing to " << op_kind << " of " << type_kind
@@ -191,18 +191,18 @@ struct wrapped_int_generator
   int base;
 };
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 
 // Make std::plus<wrapped_int> commutative.
 template<>
 struct is_commutative<std::plus<wrapped_int>, wrapped_int>
   : mpl::true_ { };
 
-} } // end namespace boost::mpi
+} } // end namespace boost::mpicxx
 
 int test_main(int argc, char* argv[])
 {
-  using namespace boost::mpi;
+  using namespace boost::mpicxx;
   environment env(argc, argv);
 
   communicator comm;

@@ -6,14 +6,14 @@
 
 // Message Passing Interface 1.1 -- Section 4.4. Broadcast
 
-#include <boost/mpi/config.hpp>
-#include <boost/mpi/collectives/broadcast.hpp>
-#include <boost/mpi/skeleton_and_content.hpp>
-#include <boost/mpi/detail/point_to_point.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/config.hpp>
+#include <boost/mpicxx/collectives/broadcast.hpp>
+#include <boost/mpicxx/skeleton_and_content.hpp>
+#include <boost/mpicxx/detail/point_to_point.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <cassert>
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 
 template<>
 void
@@ -150,4 +150,4 @@ void broadcast<const content>(const communicator& comm, const content& c,
 #endif
 }
 
-} } // end namespace boost::mpi
+} } // end namespace boost::mpicxx

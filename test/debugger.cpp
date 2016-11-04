@@ -15,7 +15,7 @@ std::vector<int> extract_paused_ranks(int argc, char** argv) {
   return paused;
 }
 
-void wait_for_debugger(std::vector<int> const& processes, boost::mpi::communicator const& comm)
+void wait_for_debugger(std::vector<int> const& processes, boost::mpicxx::communicator const& comm)
 {
   int i = 1;
   for (int r = 0; r < comm.size(); ++r) {

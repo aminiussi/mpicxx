@@ -17,12 +17,12 @@
    We will introduce this optimization later, when we have more
    performance test cases and have met our functionality goals. */
 
-#include <boost/mpi/detail/point_to_point.hpp>
-#include <boost/mpi/datatype.hpp>
-#include <boost/mpi/exception.hpp>
+#include <boost/mpicxx/detail/point_to_point.hpp>
+#include <boost/mpicxx/datatype.hpp>
+#include <boost/mpicxx/exception.hpp>
 #include <cassert>
 
-namespace boost { namespace mpi { namespace detail {
+namespace boost { namespace mpicxx { namespace detail {
 
 void
 packed_archive_send(MPI_Comm comm, int dest, int tag,
@@ -95,4 +95,4 @@ packed_archive_recv(MPI_Comm comm, int source, int tag, packed_iarchive& ar,
                           comm, &status));
 }
 
-} } } // end namespace boost::mpi::detail
+} } } // end namespace boost::mpicxx::detail

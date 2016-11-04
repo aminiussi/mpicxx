@@ -9,11 +9,11 @@
 #define BOOST_ARCHIVE_SOURCE
 #include <boost/archive/detail/archive_serializer_map.hpp>
 #include <boost/archive/impl/archive_serializer_map.ipp>
-#include <boost/mpi/detail/mpi_datatype_oarchive.hpp>
+#include <boost/mpicxx/detail/mpi_datatype_oarchive.hpp>
 
 namespace boost { namespace archive { namespace detail {
 // explicitly instantiate all required template functions
 
-template class archive_serializer_map<mpi::detail::mpi_datatype_oarchive> ;
+template class archive_serializer_map<mpicxx::detail::mpi_datatype_oarchive> ;
 
 } } } 

@@ -10,16 +10,16 @@
 
 #include <boost/archive/detail/archive_serializer_map.hpp>
 #include <boost/archive/impl/archive_serializer_map.ipp>
-#include <boost/mpi/skeleton_and_content.hpp>
+#include <boost/mpicxx/skeleton_and_content.hpp>
 
 namespace boost { namespace archive {
 
 // explicitly instantiate all required templates
 
 // template class basic_binary_iarchive<mpi::packed_skeleton_iarchive> ;
-template class detail::archive_serializer_map<mpi::packed_skeleton_iarchive> ;
+template class detail::archive_serializer_map<mpicxx::packed_skeleton_iarchive> ;
 template class detail::archive_serializer_map<
-  mpi::detail::forward_skeleton_iarchive<
-    boost::mpi::packed_skeleton_iarchive, boost::mpi::packed_iarchive> > ;
+  mpicxx::detail::forward_skeleton_iarchive<
+    boost::mpicxx::packed_skeleton_iarchive, boost::mpicxx::packed_iarchive> > ;
 
 } } // end namespace boost::archive

@@ -5,18 +5,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // A test of the is_mpi_op functionality.
-#include <boost/mpi/operations.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/operations.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
 #include <boost/test/minimal.hpp>
 
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 using namespace std;
 using boost::is_base_and_derived;
 
 int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env(argc, argv);
+  boost::mpicxx::environment env(argc, argv);
 
   // Check each predefined MPI_Op type that we support directly.
   BOOST_CHECK((is_mpi_op<maximum<int>, int>::op() == MPI_MAX));

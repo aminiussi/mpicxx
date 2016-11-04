@@ -10,18 +10,17 @@
 
 import mpi ;
 import indirect ;
-import python ;
 
 libraries = ;
 
 if [ mpi.configured ]
 {
 
-project boost/mpi
+project boost/mpicxx
   : source-location ../src
   ;
 
-lib boost_mpi 
+lib mpicxx
   : 
     broadcast.cpp
     cartesian_communicator.cpp
@@ -58,55 +57,8 @@ lib boost_mpi
     <library>/mpi//mpi [ mpi.extra-requirements ]
   ;
   
-libraries += boost_mpi ;  
+libraries += mpi_cxx ;  
 
-  if [ python.configured ]
-  {
-    lib boost_mpi_python
-      : # Sources
-        python/serialize.cpp
-      : # Requirements
-        <library>boost_mpi
-        <library>/mpi//mpi [ mpi.extra-requirements ]
-      	<library>/boost/python//boost_python
-        <link>shared:<define>BOOST_MPI_DYN_LINK=1
-        <link>shared:<define>BOOST_MPI_PYTHON_DYN_LINK=1
-        <link>shared:<define>BOOST_PYTHON_DYN_LINK=1        
-        <define>BOOST_MPI_PYTHON_SOURCE=1
-	-<tag>@$(BOOST_JAMROOT_MODULE)%$(BOOST_JAMROOT_MODULE).tag
-	<tag>@$(BOOST_JAMROOT_MODULE)%$(BOOST_JAMROOT_MODULE).python-tag
-      : # Default build
-        <link>shared
-      : # Usage requirements
-        <library>/mpi//mpi [ mpi.extra-requirements ]
-      ;
-    libraries += boost_mpi_python ;   
-
-    python-extension mpi 
-      : # Sources
-        python/collectives.cpp
-        python/py_communicator.cpp
-        python/datatypes.cpp
-        python/documentation.cpp
-        python/py_environment.cpp
-        python/py_nonblocking.cpp
-        python/py_exception.cpp
-        python/module.cpp
-        python/py_request.cpp
-        python/skeleton_and_content.cpp
-        python/status.cpp
-        python/py_timer.cpp
-      : # Requirements
-      	<library>/boost/python//boost_python      
-        <library>boost_mpi_python
-        <library>boost_mpi
-        <library>/mpi//mpi [ mpi.extra-requirements ]
-        <link>shared:<define>BOOST_MPI_DYN_LINK=1    
-        <link>shared:<define>BOOST_MPI_PYTHON_DYN_LINK=1        
-        <link>shared:<define>BOOST_PYTHON_DYN_LINK=1    
-        <link>shared <runtime-link>shared
-      ;
-  }
 }
 else if ! ( --without-mpi in  [ modules.peek : ARGV ] )
 {

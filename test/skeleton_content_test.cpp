@@ -6,30 +6,30 @@
 
 // A test of the communicator that transmits skeletons and
 // content for data types.
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/test/minimal.hpp>
 #include <boost/serialization/list.hpp>
-#include <boost/mpi/skeleton_and_content.hpp>
-#include <boost/mpi/nonblocking.hpp>
+#include <boost/mpicxx/skeleton_and_content.hpp>
+#include <boost/mpicxx/nonblocking.hpp>
 #include <algorithm>
 #include <boost/iterator/counting_iterator.hpp>
-#include <boost/mpi/collectives/broadcast.hpp>
+#include <boost/mpicxx/collectives/broadcast.hpp>
 
-using boost::mpi::communicator;
+using boost::mpicxx::communicator;
 
-using boost::mpi::packed_skeleton_iarchive;
-using boost::mpi::packed_skeleton_oarchive;
+using boost::mpicxx::packed_skeleton_iarchive;
+using boost::mpicxx::packed_skeleton_oarchive;
 
 void
 test_skeleton_and_content(const communicator& comm, int root,
                           bool manual_broadcast)
 {
-  using boost::mpi::skeleton;
-  using boost::mpi::content;
-  using boost::mpi::get_content;
+  using boost::mpicxx::skeleton;
+  using boost::mpicxx::content;
+  using boost::mpicxx::get_content;
   using boost::make_counting_iterator;
-  using boost::mpi::broadcast;
+  using boost::mpicxx::broadcast;
 
   int list_size = comm.size() + 7;
   if (comm.rank() == root) {
@@ -102,13 +102,13 @@ test_skeleton_and_content(const communicator& comm, int root,
 void
 test_skeleton_and_content_nonblocking(const communicator& comm, int root)
 {
-  using boost::mpi::skeleton;
-  using boost::mpi::content;
-  using boost::mpi::get_content;
+  using boost::mpicxx::skeleton;
+  using boost::mpicxx::content;
+  using boost::mpicxx::get_content;
   using boost::make_counting_iterator;
-  using boost::mpi::broadcast;
-  using boost::mpi::request;
-  using boost::mpi::wait_all;
+  using boost::mpicxx::broadcast;
+  using boost::mpicxx::request;
+  using boost::mpicxx::wait_all;
 
   int list_size = comm.size() + 7;
   if (comm.rank() == root) {
@@ -185,7 +185,7 @@ test_skeleton_and_content_nonblocking(const communicator& comm, int root)
 
 int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env(argc, argv);
+  boost::mpicxx::environment env(argc, argv);
 
   communicator comm;
   if (comm.size() == 1) {

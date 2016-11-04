@@ -6,10 +6,10 @@
 
 // A test of the scatter() and scatterv() collectives.
 #include <iterator>
-#include <boost/mpi/collectives/scatter.hpp>
-#include <boost/mpi/collectives/scatterv.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/collectives/scatter.hpp>
+#include <boost/mpicxx/collectives/scatterv.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/test/minimal.hpp>
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
@@ -17,7 +17,7 @@
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/lexical_cast.hpp>
 
-using boost::mpi::communicator;
+using boost::mpicxx::communicator;
 
 template<typename Generator>
 void
@@ -30,7 +30,7 @@ scatter_test(const communicator& comm, Generator generator,
     for (root = 0; root < comm.size(); ++root)
       scatter_test(comm, generator, kind, root);
   } else {
-    using boost::mpi::scatter;
+    using boost::mpicxx::scatter;
 
     value_type value;
 
@@ -122,7 +122,7 @@ scatterv_test(const communicator& comm, Generator generator,
     for (root = 0; root < comm.size(); ++root)
       scatterv_test(comm, generator, kind, root);
   } else {
-    using boost::mpi::scatterv;
+    using boost::mpicxx::scatterv;
 
     int mysize = comm.rank() + 1;
     std::vector<value_type> myvalues(mysize);
@@ -156,7 +156,7 @@ scatterv_test(const communicator& comm, Generator generator,
 
 int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env(argc, argv);
+  boost::mpicxx::environment env(argc, argv);
 
   communicator comm;
 

@@ -5,22 +5,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // A test of the broadcast() collective.
-#include <boost/mpi/collectives/broadcast.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/collectives/broadcast.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/test/minimal.hpp>
 #include <algorithm>
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
-#include <boost/mpi/skeleton_and_content.hpp>
+#include <boost/mpicxx/skeleton_and_content.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 //#include "debugger.hpp"
 
-using boost::mpi::communicator;
+using boost::mpicxx::communicator;
 
-using boost::mpi::packed_skeleton_iarchive;
-using boost::mpi::packed_skeleton_oarchive;
+using boost::mpicxx::packed_skeleton_iarchive;
+using boost::mpicxx::packed_skeleton_oarchive;
 
 template<typename T>
 void
@@ -31,7 +31,7 @@ broadcast_test(const communicator& comm, const T& bc_value,
     for (root = 0; root < comm.size(); ++root)
       broadcast_test(comm, bc_value, kind, root);
   } else {
-    using boost::mpi::broadcast;
+    using boost::mpicxx::broadcast;
 
     T value;
     if (comm.rank() == root) {
@@ -52,10 +52,10 @@ broadcast_test(const communicator& comm, const T& bc_value,
 void
 test_skeleton_and_content(const communicator& comm, int root = 0)
 {
-  using boost::mpi::content;
-  using boost::mpi::get_content;
+  using boost::mpicxx::content;
+  using boost::mpicxx::get_content;
   using boost::make_counting_iterator;
-  using boost::mpi::broadcast;
+  using boost::mpicxx::broadcast;
 
   int list_size = comm.size() + 7;
   if (comm.rank() == root) {
@@ -135,7 +135,7 @@ test_skeleton_and_content(const communicator& comm, int root = 0)
 
 int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env(argc, argv);
+  boost::mpicxx::environment env(argc, argv);
 
   communicator comm;
   if (comm.size() == 1) {

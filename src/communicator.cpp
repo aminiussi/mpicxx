@@ -3,15 +3,15 @@
 // Use, modification and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/group.hpp>
-#include <boost/mpi/intercommunicator.hpp>
-#include <boost/mpi/graph_communicator.hpp>
-#include <boost/mpi/cartesian_communicator.hpp>
-#include <boost/mpi/skeleton_and_content.hpp>
-#include <boost/mpi/detail/point_to_point.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/group.hpp>
+#include <boost/mpicxx/intercommunicator.hpp>
+#include <boost/mpicxx/graph_communicator.hpp>
+#include <boost/mpicxx/cartesian_communicator.hpp>
+#include <boost/mpicxx/skeleton_and_content.hpp>
+#include <boost/mpicxx/detail/point_to_point.hpp>
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 
 /***************************************************************************
  * status                                                                  *
@@ -59,7 +59,7 @@ communicator::communicator(const MPI_Comm& comm, comm_create_kind kind)
 }
 
 communicator::communicator(const communicator& comm, 
-                           const boost::mpi::group& subgroup)
+                           const boost::mpicxx::group& subgroup)
 {
   MPI_Comm newcomm;
   BOOST_MPI_CHECK_RESULT(MPI_Comm_create, 
@@ -82,11 +82,11 @@ int communicator::rank() const
   return rank_;
 }
 
-boost::mpi::group communicator::group() const
+boost::mpicxx::group communicator::group() const
 {
   MPI_Group gr;
   BOOST_MPI_CHECK_RESULT(MPI_Comm_group, ((MPI_Comm)*this, &gr));
-  return boost::mpi::group(gr, /*adopt=*/true);
+  return boost::mpicxx::group(gr, /*adopt=*/true);
 }
 
 void communicator::send(int dest, int tag) const
@@ -344,4 +344,4 @@ bool operator==(const communicator& comm1, const communicator& comm2)
   return result == MPI_IDENT;
 }
 
-} } // end namespace boost::mpi
+} } // end namespace boost::mpicxx

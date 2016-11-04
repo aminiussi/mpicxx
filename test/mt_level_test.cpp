@@ -6,17 +6,17 @@
 
 // test threading::level operations
 
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/test/minimal.hpp>
 #include <iostream>
 #include <sstream>
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 void
 test_threading_level_io(mpi::threading::level orig) {
   std::ostringstream out;
-  namespace mt = boost::mpi::threading;
+  namespace mt = boost::mpicxx::threading;
   mt::level printed = mt::level(-1);
 
   out << orig;
@@ -32,7 +32,7 @@ test_threading_level_io(mpi::threading::level orig) {
 
 void
 test_threading_levels_io() {
-  namespace mt = boost::mpi::threading;
+  namespace mt = boost::mpicxx::threading;
   test_threading_level_io(mt::single);
   test_threading_level_io(mt::funneled);
   test_threading_level_io(mt::serialized);
@@ -41,7 +41,7 @@ test_threading_levels_io() {
 
 void
 test_threading_level_cmp() {
-  namespace mt = boost::mpi::threading;
+  namespace mt = boost::mpicxx::threading;
   BOOST_CHECK(mt::single == mt::single);
   BOOST_CHECK(mt::funneled == mt::funneled);
   BOOST_CHECK(mt::serialized == mt::serialized);

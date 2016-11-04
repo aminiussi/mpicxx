@@ -13,15 +13,15 @@
  *  Python.
  */
 #include <boost/python.hpp>
-#include <boost/mpi/exception.hpp>
+#include <boost/mpicxx/exception.hpp>
 #include <string>
 #include <boost/lexical_cast.hpp>
 #include "utility.hpp"
 
 using namespace boost::python;
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 extern const char* exception_docstring;
 extern const char* exception_what_docstring;
@@ -51,4 +51,4 @@ void export_exception()
   translate_exception<exception>::declare(type);
 }
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

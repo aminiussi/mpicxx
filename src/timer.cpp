@@ -3,10 +3,10 @@
 // Use, modification and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#include <boost/mpi/timer.hpp>
-#include <boost/mpi/exception.hpp>
+#include <boost/mpicxx/timer.hpp>
+#include <boost/mpicxx/exception.hpp>
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 
 bool timer::time_is_global()
 {
@@ -22,4 +22,4 @@ bool timer::time_is_global()
     return *is_global != 0;
 }
 
-} } // end namespace boost::mpi
+} } // end namespace boost::mpicxx

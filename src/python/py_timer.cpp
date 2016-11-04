@@ -12,12 +12,12 @@
  *  Python.
  */
 #include <boost/python.hpp>
-#include <boost/mpi/timer.hpp>
+#include <boost/mpicxx/timer.hpp>
 
 using namespace boost::python;
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 extern const char* timer_docstring;
 extern const char* timer_default_constructor_docstring;
@@ -45,4 +45,4 @@ void export_timer()
     ;
 }
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

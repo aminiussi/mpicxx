@@ -6,7 +6,7 @@
 // 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/mpi/datatype_fwd.hpp>
+#include <boost/mpicxx/datatype_fwd.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/serialization/export.hpp>
 #include <boost/shared_ptr.hpp>
@@ -54,7 +54,7 @@ std::ostream& operator<<(std::ostream& out,  const gps_position& g) {
   return out;
 }
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 
   template <>
   struct is_mpi_datatype<gps_position>

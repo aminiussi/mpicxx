@@ -7,7 +7,7 @@
 //  Authors: Matthias Troyer
 
 #define BOOST_ARCHIVE_SOURCE
-#include <boost/mpi/detail/text_skeleton_oarchive.hpp>
+#include <boost/mpicxx/detail/text_skeleton_oarchive.hpp>
 
 #include <boost/archive/detail/archive_serializer_map.hpp>
 #include <boost/archive/impl/archive_serializer_map.ipp>

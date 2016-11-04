@@ -14,7 +14,7 @@
  */
 #include <boost/python.hpp>
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 template<typename E>
 class translate_exception
@@ -38,6 +38,6 @@ private:
   boost::python::object type;
 };
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python
 
 #endif // BOOST_MPI_PYTHON_UTILITY_HPP

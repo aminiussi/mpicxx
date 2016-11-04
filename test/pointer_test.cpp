@@ -6,7 +6,7 @@
 
 
 // a test of pointer serialization
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 #include <boost/test/minimal.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 
@@ -23,8 +23,8 @@ class A
 
 int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env(argc, argv);
-  boost::mpi::communicator world;
+  boost::mpicxx::environment env(argc, argv);
+  boost::mpicxx::communicator world;
 
   if(world.rank() == 0)
   {

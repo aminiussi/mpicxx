@@ -7,13 +7,13 @@
 //  Authors: Matthias Troyer
 
 #define BOOST_ARCHIVE_SOURCE
-#include <boost/mpi/packed_oarchive.hpp>
+#include <boost/mpicxx/packed_oarchive.hpp>
 #include <boost/archive/detail/archive_serializer_map.hpp>
 #include <boost/archive/impl/archive_serializer_map.ipp>
 
 namespace boost { namespace archive {
 // explicitly instantiate all required templates
 
-template class detail::archive_serializer_map<mpi::packed_oarchive> ;
+template class detail::archive_serializer_map<mpicxx::packed_oarchive> ;
 
 } } // end namespace boost::archive

@@ -12,12 +12,12 @@
  *  Python.
  */
 #include <boost/python.hpp>
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 
 using namespace boost::python;
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 extern const char* status_docstring;
 extern const char* status_source_docstring;
@@ -38,4 +38,4 @@ void export_status()
     ;
 }
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

@@ -12,11 +12,11 @@
  *  Python.
  */
 #include <boost/python.hpp>
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 #include "request_with_value.hpp"
 
 using namespace boost::python;
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 
 const object python::request_with_value::get_value() const 
 {
@@ -65,7 +65,7 @@ const object python::request_with_value::wrap_test()
 }
 
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
   
 const object request_test(request &req)                                         
 {                                                                               
@@ -108,4 +108,4 @@ void export_request()
   implicitly_convertible<request, request_with_value>();
 }
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

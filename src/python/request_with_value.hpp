@@ -12,12 +12,12 @@
 #define BOOST_MPI_PYTHON_REQUEST_WITH_VALUE_HPP
 
 #include <boost/python.hpp>
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
   /** This wrapper adds a @c boost::python::object value to the @c
-   * boost::mpi::request structure, for the benefit of @c irecv() requests.
+   * boost::mpicxx::request structure, for the benefit of @c irecv() requests.
    *
    * In order to be able to return the value of his requests to the user, we
    * need a handle that we can update to contain the transmitted value once the
@@ -30,7 +30,7 @@ namespace boost { namespace mpi { namespace python {
    *
    * In the first case, we need to own the storage from this object, the
    * m_internal_value is used for this. In the second case, the updated
-   * python::object is part of a boost::mpi::python::content object: the
+   * python::object is part of a boost::mpicxx::python::content object: the
    * m_external_value field handles this case. Furthermore, in the latter case,
    * we now have a lifetime dependency on that content object; this can be
    * handled with the BPL's with_custodian_and_ward facility.

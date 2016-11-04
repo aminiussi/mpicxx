@@ -7,17 +7,16 @@
 // A test of the ibroadcast() collective.
 
 #include <algorithm>
-#include <boost/mpi/collectives/ibroadcast.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/collectives/ibroadcast.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
-#include <boost/test/minimal.hpp>
 
 #include "gps_position.hpp"
 //#include "debugger.hpp"
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 template<typename T>
 void
@@ -32,7 +31,7 @@ ibroadcast_test(mpi::communicator const& comm, T const& bc_value,
   }
   mpi::request req = mpi::ibroadcast(comm, value, root);
   req.wait();
-  BOOST_CHECK(value == bc_value);
+  if (value != bc_value) std::abort();
   if (comm.rank() == root && value == bc_value) {
     std::cout << "OK." << std::endl;
   }
@@ -49,10 +48,10 @@ ibroadcast_test_all(mpi::communicator const& comm, T const& bc_value,
   }
 }
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   mpi::environment env(argc, argv);
-
+  
   mpi::communicator comm;
   if (comm.size() == 1) {
     std::cerr << "ERROR: Must run the broadcast test with more than one "

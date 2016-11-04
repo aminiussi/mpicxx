@@ -12,12 +12,12 @@
  *  bindings.
  */
 #include <boost/python.hpp>
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 
 using namespace boost::python;
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 extern void export_environment();
 extern void export_exception();
@@ -52,4 +52,4 @@ BOOST_PYTHON_MODULE(mpi)
   export_nonblocking();
 }
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

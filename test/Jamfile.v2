@@ -9,7 +9,7 @@
 # Authors: Douglas Gregor
 #          Andrew Lumsdaine
 
-use-project /boost/mpi : ../build ;
+use-project /boost/mpicxx : ../build ;
 project /boost/mpi/test ;
 import mpi : mpi-test ;
 

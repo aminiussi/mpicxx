@@ -12,7 +12,7 @@
  *  This file contains all of the documentation strings for the
  *  Boost.MPI Python bindings.
  */
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 const char* module_docstring = 
   "The boost.mpi module contains Python wrappers for Boost.MPI.\n"
@@ -85,7 +85,7 @@ const char* module_docstring =
   "  meet the requirements of the Boost.Serialization library is eligible\n"
   "  for this optimization, but the type must be registered in advance. To\n"
   "  register a C++ type, invoke the C++ function:\n"
-  "    boost::mpi::python::register_serialized\n"
+  "    boost::mpicxx::python::register_serialized\n"
   "\n"
   "  Finally, Boost.MPI supports separation of the structure of an object\n"
   "  from the data it stores, allowing the two pieces to be transmitted\n"
@@ -127,8 +127,8 @@ const char* module_docstring =
   "  To use the skeleton/content mechanism from Python, you must first\n"
   "  register the type of your data structure with the skeleton/content\n"
   "  mechanism *from C++*. The registration function is\n"
-  "    boost::mpi::python::register_skeleton_and_content\n"
-  "  and resides in the <boost/mpi/python.hpp> header.\n"
+  "    boost::mpicxx::python::register_skeleton_and_content\n"
+  "  and resides in the <boost/mpicxx/python.hpp> header.\n"
   "\n"
   "  Once you have registered your C++ data structures, you can extract\n"
   "  the skeleton for an instance of that data structure with skeleton().\n"
@@ -559,7 +559,7 @@ const char* object_without_skeleton_docstring =
   "object that is not supported by the skeleton/content mechanism.\n"
   "All C++ types for which skeletons and content can be transmitted\n"
   "must be registered with the C++ routine:\n"
-  "  boost::mpi::python::register_skeleton_and_content\n";
+  "  boost::mpicxx::python::register_skeleton_and_content\n";
 
 const char* object_without_skeleton_object_docstring = 
   "The object on which skeleton() or get_content() was invoked.\n";
@@ -604,7 +604,7 @@ const char* skeleton_docstring =
   "\n"
   "Only C++ types that have been explicitly registered with the Boost.MPI\n"
   "Python library can be used with the skeleton/content mechanism. Use:\b"
-  "  boost::mpi::python::register_skeleton_and_content\n";
+  "  boost::mpicxx::python::register_skeleton_and_content\n";
 
 const char* get_content_docstring = 
   "The get_content function retrieves the content for its object parameter,\n"
@@ -618,7 +618,7 @@ const char* get_content_docstring =
   "\n"
   "Only C++ types that have been explicitly registered with the Boost.MPI\n"
   "Python library can be used with the skeleton/content mechanism. Use:\b"
-  "  boost::mpi::python::register_skeleton_and_content\n";
+  "  boost::mpicxx::python::register_skeleton_and_content\n";
 
 /***********************************************************
  * status documentation                                    *
@@ -668,4 +668,4 @@ const char* timer_time_is_global_docstring =
   "Determines whether the elapsed time values are global times or\n"
   "local processor times.\n";
 
-} } } // end namespace boost::mpi::python
+} } } // end namespace boost::mpicxx::python

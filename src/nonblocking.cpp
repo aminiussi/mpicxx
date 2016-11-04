@@ -5,9 +5,9 @@
 
 // Authors: Alain Miniussi
 
-#include <boost/mpi/nonblocking.hpp>
+#include <boost/mpicxx/nonblocking.hpp>
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 std::pair<status, std::vector<request>::iterator>
 wait_any(std::vector<request>::iterator begin,
          std::vector<request>::iterator end) {

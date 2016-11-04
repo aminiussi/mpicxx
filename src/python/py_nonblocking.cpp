@@ -21,12 +21,12 @@
 #include <boost/python.hpp>
 #include <boost/python/stl_iterator.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 #include "request_with_value.hpp"
 
 using namespace std;
 using namespace boost::python;
-using namespace boost::mpi;
+using namespace boost::mpicxx;
 
 
 
@@ -205,7 +205,7 @@ namespace
 
 
 
-namespace boost { namespace mpi { namespace python {
+namespace boost { namespace mpicxx { namespace python {
 
 extern const char* request_list_init_docstring;
 extern const char* request_list_append_docstring;

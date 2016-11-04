@@ -6,14 +6,14 @@
 
 // A test of communicators created from groups.
 
-#include <boost/mpi/environment.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/group.hpp>
+#include <boost/mpicxx/environment.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/group.hpp>
 #include <boost/test/minimal.hpp>
 #include <vector>
 #include <algorithm>
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 
 template <typename T>

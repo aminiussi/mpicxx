@@ -7,10 +7,10 @@
 //  Authors: Matthias Troyer
 
 #include <boost/archive/detail/archive_serializer_map.hpp>
-#include <boost/mpi/detail/mpi_datatype_cache.hpp>
+#include <boost/mpicxx/detail/mpi_datatype_cache.hpp>
 #include <map>
 
-namespace boost { namespace mpi { namespace detail {
+namespace boost { namespace mpicxx { namespace detail {
 
   typedef std::map<std::type_info const*,MPI_Datatype,type_info_compare>
       stored_map_type;

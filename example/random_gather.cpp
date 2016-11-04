@@ -6,10 +6,10 @@
 
 // An example using Boost.MPI's gather(): [main]
 
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 #include <iostream>
 #include <cstdlib>
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 int main(int argc, char* argv[])
 {

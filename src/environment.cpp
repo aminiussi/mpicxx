@@ -5,16 +5,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // Message Passing Interface 1.1 -- 7.1.1. Environmental Inquiries
-#include <boost/mpi/environment.hpp>
-#include <boost/mpi/exception.hpp>
-#include <boost/mpi/detail/mpi_datatype_cache.hpp>
+#include <boost/mpicxx/environment.hpp>
+#include <boost/mpicxx/exception.hpp>
+#include <boost/mpicxx/detail/mpi_datatype_cache.hpp>
 #include <cassert>
 #include <string>
 #include <exception>
 #include <stdexcept>
 #include <ostream>
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 namespace threading {
 std::istream& operator>>(std::istream& in, level& l)
 {
@@ -254,4 +254,4 @@ std::pair<int, int> environment::version()
   return std::make_pair(major, minor);
 }
 
-} } // end namespace boost::mpi
+} } // end namespace boost::mpicxx

@@ -7,9 +7,9 @@
 // Compute parents, children, levels, etc. to effect a parallel
 // computation tree.
 
-#include <boost/mpi/detail/computation_tree.hpp>
+#include <boost/mpicxx/detail/computation_tree.hpp>
 
-namespace boost { namespace mpi { namespace detail {
+namespace boost { namespace mpicxx { namespace detail {
 
 int computation_tree::default_branching_factor = 3;
 
@@ -69,4 +69,4 @@ int computation_tree::child_begin() const
   else return (child_index + root) % size;
 }
 
-} } } // end namespace boost::mpi::detail
+} } } // end namespace boost::mpicxx::detail

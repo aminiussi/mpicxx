@@ -16,7 +16,7 @@
 using std::array;
 using std::vector;
 
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 struct blob : array<int, 9>, array<double, 3>, array<char, 8> {
 };

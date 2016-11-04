@@ -6,14 +6,14 @@
 
 // An example using Boost.MPI's skeletons and content to optimize
 // communication.
-#include <boost/mpi.hpp>
+#include <boost/mpicxx.hpp>
 #include <boost/serialization/list.hpp>
 #include <algorithm>
 #include <functional>
 #include <numeric>
 #include <iostream>
 #include <stdlib.h>
-namespace mpi = boost::mpi;
+namespace mpi = boost::mpicxx;
 
 int main(int argc, char* argv[])
 {

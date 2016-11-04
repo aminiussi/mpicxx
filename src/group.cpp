@@ -6,10 +6,10 @@
 // Use, modification and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#include <boost/mpi/group.hpp>
-#include <boost/mpi/communicator.hpp>
+#include <boost/mpicxx/group.hpp>
+#include <boost/mpicxx/communicator.hpp>
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 
 group::group(const MPI_Group& in_group, bool adopt)
 {
@@ -103,4 +103,4 @@ template<> group group::exclude(int* first, int* last)
   return group(result, /*adopt=*/true);
 }
 
-} } // end namespace boost::mpi
+} } // end namespace boost::mpicxx

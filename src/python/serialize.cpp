@@ -10,9 +10,9 @@
  *
  *  This file provides Boost.Serialization support for Python objects.
  */
-#include <boost/mpi/python/serialize.hpp>
-#include <boost/mpi/python/skeleton_and_content.hpp>
-#include <boost/mpi.hpp>
+#include <boost/mpicxx/python/serialize.hpp>
+#include <boost/mpicxx/python/skeleton_and_content.hpp>
+#include <boost/mpicxx.hpp>
 
 namespace boost { namespace python {
 
@@ -49,10 +49,10 @@ void pickle::initialize_data()
 } } // end namespace boost::python
 
 BOOST_PYTHON_DIRECT_SERIALIZATION_ARCHIVE_IMPL(
-  ::boost::mpi::packed_iarchive,
-  ::boost::mpi::packed_oarchive)
+  ::boost::mpicxx::packed_iarchive,
+  ::boost::mpicxx::packed_oarchive)
 
-namespace boost { namespace mpi { namespace python { namespace detail {
+namespace boost { namespace mpicxx { namespace python { namespace detail {
 
   boost::python::object skeleton_proxy_base_type; 
 
@@ -76,4 +76,4 @@ namespace boost { namespace mpi { namespace python { namespace detail {
     skeleton_content_handlers[type] = handler;
   }
 
-} } } } // end namespace boost::mpi::python::detail
+} } } } // end namespace boost::mpicxx::python::detail

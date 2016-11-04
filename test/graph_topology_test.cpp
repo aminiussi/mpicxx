@@ -11,9 +11,9 @@
 // verifies that the same data makes it all the way. Should test all
 // of the various kinds of data that can be sent (primitive types, POD
 // types, serializable objects, etc.)
-#include <boost/mpi/graph_communicator.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
+#include <boost/mpicxx/graph_communicator.hpp>
+#include <boost/mpicxx/communicator.hpp>
+#include <boost/mpicxx/environment.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/graph/erdos_renyi_generator.hpp>
@@ -23,10 +23,10 @@
 #include <boost/graph/isomorphism.hpp>
 #include <algorithm> // for random_shuffle
 #include <boost/serialization/vector.hpp>
-#include <boost/mpi/collectives/broadcast.hpp>
+#include <boost/mpicxx/collectives/broadcast.hpp>
 
-using boost::mpi::communicator;
-using boost::mpi::graph_communicator;
+using boost::mpicxx::communicator;
+using boost::mpicxx::graph_communicator;
 using namespace boost;
 
 int test_main(int argc, char* argv[])
@@ -38,7 +38,7 @@ int test_main(int argc, char* argv[])
 
   double prob = 0.1;
 
-  boost::mpi::environment env(argc, argv);
+  boost::mpicxx::environment env(argc, argv);
 
   communicator world;
 

@@ -9,9 +9,9 @@
 #include <algorithm>
 #include <cassert>
 
-#include <boost/mpi/cartesian_communicator.hpp>
+#include <boost/mpicxx/cartesian_communicator.hpp>
 
-namespace boost { namespace mpi {
+namespace boost { namespace mpicxx {
 
 std::ostream&
 operator<<(std::ostream& out, cartesian_dimension const& d) {
@@ -171,4 +171,4 @@ cartesian_dimensions(int sz, std::vector<int>&  dims) {
   return dims;
 }
 
-} } // end namespace boost::mpi
+} } // end namespace boost::mpicxx
