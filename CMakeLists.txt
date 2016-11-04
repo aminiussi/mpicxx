@@ -3,7 +3,7 @@ project (MPICxx)
 
 enable_testing()
 
-include_directories(include ../../)
+include_directories(include ../../local/include)
 
 add_library(mpicxx 
   src/broadcast.cpp
@@ -32,11 +32,17 @@ add_library(mpicxx
 
 #find_package(Boost 1.40 
 #  COMPONENTS serialization filesystem)
-find_library(BOOST_serialization
+find_library(BOOST_SERIALIZATION
   boost_serialization
-  HINTS ../../
+  HINTS ../../local/lib)
+
 find_package(MPI)
+if(EXISTS  "${MPIEXEC}.hydra")
+  set(MPIEXEC "${MPIEXEC}.hydra")
+  message(INFO "  Found MPIEXEC: ${MPIEXEC}")
+endif()
+
 include_directories(${MPI_INCLUDE_PATH})
-target_link_libraries(mpicxx ${MPI_CXX_LIBRARIES})
+target_link_libraries(mpicxx ${MPI_CXX_LIBRARIES} ${BOOST_SERIALIZATION})
 
 add_subdirectory(test)

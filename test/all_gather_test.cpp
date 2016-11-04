@@ -12,7 +12,6 @@
 #include <boost/mpicxx/collectives/all_gatherv.hpp>
 #include <boost/mpicxx/environment.hpp>
 #include <boost/mpicxx/communicator.hpp>
-#include <boost/test/minimal.hpp>
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
 #include <boost/iterator/counting_iterator.hpp>
@@ -23,10 +22,11 @@
 namespace mpi = boost::mpicxx;
 
 template<typename Generator>
-void
+int
 all_gather_test(const mpi::communicator& comm, Generator generator,
                 std::string kind)
 {
+  int failed = 0;
   typedef typename Generator::result_type value_type;
   value_type value = generator(comm.rank());
 
@@ -41,7 +41,7 @@ all_gather_test(const mpi::communicator& comm, Generator generator,
   std::vector<value_type> expected_values;
   for (int p = 0; p < comm.size(); ++p)
     expected_values.push_back(generator(p));
-  BOOST_CHECK(values == expected_values);
+  if (values != expected_values) std::abort();
   if (comm.rank() == 0 && values == expected_values)
     std::cout << "OK." << std::endl;
 
@@ -75,7 +75,7 @@ all_gatherv_test(const mpi::communicator& comm, Generator generator,
   
   mpi::all_gatherv(comm, myvalues, values, sizes);
   
-  BOOST_CHECK(values == expected);
+  if (values != expected) abort();
   
   if (comm.rank() == 0 && values == expected)
     std::cout << "OK." << std::endl;
@@ -130,7 +130,7 @@ struct string_list_generator
   }
 };
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
   mpi::communicator comm;
