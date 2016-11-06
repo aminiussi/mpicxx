@@ -8,7 +8,7 @@
 #include <boost/mpicxx/collectives/reduce.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <algorithm>
 #include <boost/serialization/string.hpp>
 #include <boost/iterator/counting_iterator.hpp>
@@ -96,7 +96,7 @@ reduce_test(const communicator& comm, Generator generator,
       value_type expected_result = std::accumulate(generated_values.begin(),
                                                    generated_values.end(),
                                                    init, op);
-      BOOST_CHECK(result_value == expected_result);
+      check_test(comm, result_value == expected_result);
       if (result_value == expected_result)
         std::cout << "OK." << std::endl;
     } else {
@@ -200,7 +200,7 @@ struct is_commutative<std::plus<wrapped_int>, wrapped_int>
 
 } } // end namespace boost::mpicxx
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   using namespace boost::mpicxx;
   environment env(argc, argv);

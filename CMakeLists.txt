@@ -33,7 +33,7 @@ add_library(mpicxx
 #find_package(Boost 1.40 
 #  COMPONENTS serialization filesystem)
 find_library(BOOST_SERIALIZATION
-  boost_serialization
+  boost_serialization boost_archive
   HINTS ../../local/lib)
 
 find_package(MPI)

@@ -13,10 +13,10 @@
 #include <boost/mpicxx/environment.hpp>
 #include <boost/mpicxx/cartesian_communicator.hpp>
 
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 
 namespace mpi = boost::mpicxx;
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   mpi::environment  env;
   mpi::communicator world;

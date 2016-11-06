@@ -8,27 +8,27 @@
 #include <boost/mpicxx/operations.hpp>
 #include <boost/mpicxx/environment.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 
-using namespace boost::mpicxx;
+namespace mpi = boost::mpicxx;
 using namespace std;
 using boost::is_base_and_derived;
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
-
+  mpi::communicator comm;
   // Check each predefined MPI_Op type that we support directly.
-  BOOST_CHECK((is_mpi_op<maximum<int>, int>::op() == MPI_MAX));
-  BOOST_CHECK((is_mpi_op<minimum<float>, float>::op() == MPI_MIN));
-  BOOST_CHECK((is_mpi_op<plus<double>, double>::op() == MPI_SUM));
-  BOOST_CHECK((is_mpi_op<multiplies<long>, long>::op() == MPI_PROD));
-  BOOST_CHECK((is_mpi_op<logical_and<int>, int>::op() == MPI_LAND));
-  BOOST_CHECK((is_mpi_op<bitwise_and<int>, int>::op() == MPI_BAND));
-  BOOST_CHECK((is_mpi_op<logical_or<int>, int>::op() == MPI_LOR));
-  BOOST_CHECK((is_mpi_op<bitwise_or<int>, int>::op() == MPI_BOR));
-  BOOST_CHECK((is_mpi_op<logical_xor<int>, int>::op() == MPI_LXOR));
-  BOOST_CHECK((is_mpi_op<bitwise_xor<int>, int>::op() == MPI_BXOR));
+  check_test(comm, (mpi::is_mpi_op<mpi::maximum<int>, int>::op() == MPI_MAX));
+  check_test(comm, (mpi::is_mpi_op<mpi::minimum<float>, float>::op() == MPI_MIN));
+  check_test(comm, (mpi::is_mpi_op<std::plus<double>, double>::op() == MPI_SUM));
+  check_test(comm, (mpi::is_mpi_op<std::multiplies<long>, long>::op() == MPI_PROD));
+  check_test(comm, (mpi::is_mpi_op<std::logical_and<int>, int>::op() == MPI_LAND));
+  check_test(comm, (mpi::is_mpi_op<mpi::bitwise_and<int>, int>::op() == MPI_BAND));
+  check_test(comm, (mpi::is_mpi_op<std::logical_or<int>, int>::op() == MPI_LOR));
+  check_test(comm, (mpi::is_mpi_op<mpi::bitwise_or<int>, int>::op() == MPI_BOR));
+  check_test(comm, (mpi::is_mpi_op<mpi::logical_xor<int>, int>::op() == MPI_LXOR));
+  check_test(comm, (mpi::is_mpi_op<mpi::bitwise_xor<int>, int>::op() == MPI_BXOR));
 
   return 0;
 }

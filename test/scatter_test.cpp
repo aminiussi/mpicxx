@@ -10,7 +10,7 @@
 #include <boost/mpicxx/collectives/scatterv.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
@@ -48,7 +48,7 @@ scatter_test(const communicator& comm, Generator generator,
       scatter(comm, value, root);
     }
 
-    BOOST_CHECK(value == generator(comm.rank()));
+    check_test(comm, value == generator(comm.rank()));
   }
 
   (comm.barrier)();
@@ -147,14 +147,14 @@ scatterv_test(const communicator& comm, Generator generator,
     }
 
     for (int i = 0; i < mysize; ++i)
-      BOOST_CHECK(myvalues[i] == generator(comm.rank()));
+      check_test(comm, myvalues[i] == generator(comm.rank()));
   }
 
-  (comm.barrier)();
+  comm.barrier();
 }
 
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
 

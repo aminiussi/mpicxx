@@ -7,21 +7,22 @@
 // test threading::level operations
 
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <iostream>
 #include <sstream>
 
 namespace mpi = boost::mpicxx;
 
 int
-test_main(int argc, char* argv[]) {
+main(int argc, char* argv[]) {
   mpi::threading::level required = mpi::threading::level(-1);
-  BOOST_CHECK(argc == 2);
+  assert(argc == 2);
   std::istringstream cmdline(argv[1]);
   cmdline >> required;
-  BOOST_CHECK(!cmdline.bad());
+  assert(!cmdline.bad());
   mpi::environment env(argc,argv,required);
-  BOOST_CHECK(env.thread_level() >= mpi::threading::single);
-  BOOST_CHECK(env.thread_level() <= mpi::threading::multiple);
+  mpi::communicator comm;
+  check_test(comm, env.thread_level() >= mpi::threading::single);
+  check_test(comm, env.thread_level() <= mpi::threading::multiple);
   return 0;
 }

@@ -10,7 +10,7 @@
 // types, serializable objects, etc.)
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <algorithm>
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
@@ -34,11 +34,11 @@ ring_test(const communicator& comm, const T& pass_value, const char* kind,
               << "...";
     comm.send((rank + 1) % size, 0, pass_value);
     comm.recv((rank + size - 1) % size, 0, transferred_value);
-    BOOST_CHECK(transferred_value == pass_value);
+    check_test(comm, transferred_value == pass_value);
     if (transferred_value == pass_value) std::cout << " OK." << std::endl;
   } else {
     comm.recv((rank + size - 1) % size, 0, transferred_value);
-    BOOST_CHECK(transferred_value == pass_value);
+    check_test(comm, transferred_value == pass_value);
     comm.send((rank + 1) % size, 0, transferred_value);
   }
 
@@ -63,18 +63,18 @@ ring_array_test(const communicator& comm, const T* pass_values,
     comm.recv((rank + size - 1) % size, 0, transferred_values, n);
     bool okay = std::equal(pass_values, pass_values + n,
                            transferred_values);
-    BOOST_CHECK(okay);
+    check_test(comm, okay);
     if (okay) std::cout << " OK." << std::endl;
   } else {
     status stat = comm.probe(boost::mpicxx::any_source, 0);
     boost::optional<int> num_values = stat.template count<T>();
     if (boost::mpicxx::is_mpi_datatype<T>())
-      BOOST_CHECK(num_values && *num_values == n);
+      check_test(comm, num_values && *num_values == n);
     else
-      BOOST_CHECK(!num_values || *num_values == n);     
+      check_test(comm, !num_values || *num_values == n);     
     comm.recv(stat.source(), 0, transferred_values, n);
-    BOOST_CHECK(std::equal(pass_values, pass_values + n,
-                           transferred_values));
+    check_test(comm, std::equal(pass_values, pass_values + n,
+                                transferred_values));
     comm.send((rank + 1) % size, 0, transferred_values, n);
   }
   (comm.barrier)();
@@ -84,7 +84,7 @@ ring_array_test(const communicator& comm, const T* pass_values,
 enum color_t {red, green, blue};
 BOOST_IS_MPI_DATATYPE(color_t)
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
 

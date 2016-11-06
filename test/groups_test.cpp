@@ -9,7 +9,7 @@
 #include <boost/mpicxx/environment.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/group.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <vector>
 #include <algorithm>
 
@@ -41,16 +41,16 @@ void group_test(const mpi::communicator& comm)
     if(part_a)
     {
         std::cout << "comm rank: " << comm.rank() << " -> part_a rank:" << part_a.rank() << std::endl;
-        BOOST_CHECK(part_a.rank() == comm.rank());
+        check_test(comm, part_a.rank() == comm.rank());
     }
     if(part_b)
     {
         std::cout << "comm rank: " << comm.rank() << " -> part_b rank:" << part_b.rank() << std::endl;
-        BOOST_CHECK(part_b.rank() == comm.rank() - comm.size()/2);
+        check_test(comm, part_b.rank() == comm.rank() - comm.size()/2);
     }
 }
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
     mpi::environment env(argc,argv);
     mpi::communicator comm;

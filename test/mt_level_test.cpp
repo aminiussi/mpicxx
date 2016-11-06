@@ -7,101 +7,104 @@
 // test threading::level operations
 
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <iostream>
 #include <sstream>
 
 namespace mpi = boost::mpicxx;
 
 void
-test_threading_level_io(mpi::threading::level orig) {
+test_threading_level_io(mpi::communicator const& comm,
+                        mpi::threading::level orig) {
   std::ostringstream out;
   namespace mt = boost::mpicxx::threading;
   mt::level printed = mt::level(-1);
 
   out << orig;
-  BOOST_CHECK(out.good());
+  check_test(comm, out.good());
   std::string orig_str(out.str());
   std::cout << "orig string:" << orig_str << '\n';
   std::istringstream in(orig_str);
   in >> printed;
-  BOOST_CHECK(!in.bad());
+  check_test(comm, !in.bad());
   std::cout << "orig: " << orig << ", printed: " << printed << std::endl;
-  BOOST_CHECK(orig == printed);
+  check_test(comm, orig == printed);
 }
 
 void
-test_threading_levels_io() {
+test_threading_levels_io(mpi::communicator const& comm) {
   namespace mt = boost::mpicxx::threading;
-  test_threading_level_io(mt::single);
-  test_threading_level_io(mt::funneled);
-  test_threading_level_io(mt::serialized);
-  test_threading_level_io(mt::multiple);
+  test_threading_level_io(comm, mt::single);
+  test_threading_level_io(comm, mt::funneled);
+  test_threading_level_io(comm, mt::serialized);
+  test_threading_level_io(comm, mt::multiple);
 }
 
 void
-test_threading_level_cmp() {
+test_threading_level_cmp(mpi::communicator const& comm) {
   namespace mt = boost::mpicxx::threading;
-  BOOST_CHECK(mt::single == mt::single);
-  BOOST_CHECK(mt::funneled == mt::funneled);
-  BOOST_CHECK(mt::serialized == mt::serialized);
-  BOOST_CHECK(mt::multiple == mt::multiple);
+  check_test(comm, mt::single == mt::single);
+  check_test(comm, mt::funneled == mt::funneled);
+  check_test(comm, mt::serialized == mt::serialized);
+  check_test(comm, mt::multiple == mt::multiple);
   
-  BOOST_CHECK(mt::single != mt::funneled);
-  BOOST_CHECK(mt::single != mt::serialized);
-  BOOST_CHECK(mt::single != mt::multiple);
+  check_test(comm, mt::single != mt::funneled);
+  check_test(comm, mt::single != mt::serialized);
+  check_test(comm, mt::single != mt::multiple);
 
-  BOOST_CHECK(mt::funneled != mt::single);
-  BOOST_CHECK(mt::funneled != mt::serialized);
-  BOOST_CHECK(mt::funneled != mt::multiple);
+  check_test(comm, mt::funneled != mt::single);
+  check_test(comm, mt::funneled != mt::serialized);
+  check_test(comm, mt::funneled != mt::multiple);
 
-  BOOST_CHECK(mt::serialized != mt::single);
-  BOOST_CHECK(mt::serialized != mt::funneled);
-  BOOST_CHECK(mt::serialized != mt::multiple);
+  check_test(comm, mt::serialized != mt::single);
+  check_test(comm, mt::serialized != mt::funneled);
+  check_test(comm, mt::serialized != mt::multiple);
 
-  BOOST_CHECK(mt::multiple != mt::single);
-  BOOST_CHECK(mt::multiple != mt::funneled);
-  BOOST_CHECK(mt::multiple != mt::serialized);
+  check_test(comm, mt::multiple != mt::single);
+  check_test(comm, mt::multiple != mt::funneled);
+  check_test(comm, mt::multiple != mt::serialized);
 
-  BOOST_CHECK(mt::single < mt::funneled);
-  BOOST_CHECK(mt::funneled > mt::single);
-  BOOST_CHECK(mt::single < mt::serialized);
-  BOOST_CHECK(mt::serialized > mt::single);
-  BOOST_CHECK(mt::single < mt::multiple);
-  BOOST_CHECK(mt::multiple > mt::single);
+  check_test(comm, mt::single < mt::funneled);
+  check_test(comm, mt::funneled > mt::single);
+  check_test(comm, mt::single < mt::serialized);
+  check_test(comm, mt::serialized > mt::single);
+  check_test(comm, mt::single < mt::multiple);
+  check_test(comm, mt::multiple > mt::single);
 
-  BOOST_CHECK(mt::funneled < mt::serialized);
-  BOOST_CHECK(mt::serialized > mt::funneled);
-  BOOST_CHECK(mt::funneled < mt::multiple);
-  BOOST_CHECK(mt::multiple > mt::funneled);
+  check_test(comm, mt::funneled < mt::serialized);
+  check_test(comm, mt::serialized > mt::funneled);
+  check_test(comm, mt::funneled < mt::multiple);
+  check_test(comm, mt::multiple > mt::funneled);
 
-  BOOST_CHECK(mt::serialized < mt::multiple);
-  BOOST_CHECK(mt::multiple > mt::serialized);
+  check_test(comm, mt::serialized < mt::multiple);
+  check_test(comm, mt::multiple > mt::serialized);
 
-  BOOST_CHECK(mt::single <= mt::single);
-  BOOST_CHECK(mt::single <= mt::funneled);
-  BOOST_CHECK(mt::funneled >= mt::single);
-  BOOST_CHECK(mt::single <= mt::serialized);
-  BOOST_CHECK(mt::serialized >= mt::single);
-  BOOST_CHECK(mt::single <= mt::multiple);
-  BOOST_CHECK(mt::multiple >= mt::single);
+  check_test(comm, mt::single <= mt::single);
+  check_test(comm, mt::single <= mt::funneled);
+  check_test(comm, mt::funneled >= mt::single);
+  check_test(comm, mt::single <= mt::serialized);
+  check_test(comm, mt::serialized >= mt::single);
+  check_test(comm, mt::single <= mt::multiple);
+  check_test(comm, mt::multiple >= mt::single);
 
-  BOOST_CHECK(mt::funneled <= mt::funneled);
-  BOOST_CHECK(mt::funneled <= mt::serialized);
-  BOOST_CHECK(mt::serialized >= mt::funneled);
-  BOOST_CHECK(mt::funneled <= mt::multiple);
-  BOOST_CHECK(mt::multiple >= mt::funneled);
+  check_test(comm, mt::funneled <= mt::funneled);
+  check_test(comm, mt::funneled <= mt::serialized);
+  check_test(comm, mt::serialized >= mt::funneled);
+  check_test(comm, mt::funneled <= mt::multiple);
+  check_test(comm, mt::multiple >= mt::funneled);
 
-  BOOST_CHECK(mt::serialized <= mt::serialized);
-  BOOST_CHECK(mt::serialized <= mt::multiple);
-  BOOST_CHECK(mt::multiple >= mt::serialized);
+  check_test(comm, mt::serialized <= mt::serialized);
+  check_test(comm, mt::serialized <= mt::multiple);
+  check_test(comm, mt::multiple >= mt::serialized);
 
-  BOOST_CHECK(mt::multiple <= mt::multiple);
+  check_test(comm, mt::multiple <= mt::multiple);
 }
     
 int
-test_main(int argc, char* argv[]) {
-  test_threading_levels_io();
-  test_threading_level_cmp();
+main(int argc, char* argv[]) {
+  mpi::environment env;
+  mpi::communicator world;
+  test_threading_levels_io(world);
+  test_threading_level_cmp(world);
   return 0;
 }

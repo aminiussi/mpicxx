@@ -7,13 +7,13 @@
 // test mpi version
 
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <iostream>
 
 namespace mpi = boost::mpicxx;
 
 int
-test_main(int argc, char* argv[]) {
+main(int argc, char* argv[]) {
 #if defined(MPI_VERSION)
   int mpi_version    = MPI_VERSION;
   int mpi_subversion = MPI_SUBVERSION;
@@ -23,11 +23,12 @@ test_main(int argc, char* argv[]) {
 #endif
 
   mpi::environment env(argc,argv);
+  mpi::communicator comm;
   std::pair<int,int> version = env.version();
   std::cout << "MPI Version: " << version.first << ',' << version.second << '\n';
 
-  BOOST_CHECK(version.first == mpi_version);
-  BOOST_CHECK(version.second == mpi_subversion);
+  check_test(comm, version.first == mpi_version);
+  check_test(comm, version.second == mpi_subversion);
 
 #if defined(BOOST_MPI_HAS_NONBLOCKING_GLOBAL)
   std::cout << "Assuming non-blocking globals availables.\n";

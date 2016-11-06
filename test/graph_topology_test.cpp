@@ -17,7 +17,7 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/graph/erdos_renyi_generator.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <boost/random/linear_congruential.hpp>
 #include <boost/graph/iteration_macros.hpp>
 #include <boost/graph/isomorphism.hpp>
@@ -29,7 +29,7 @@ using boost::mpicxx::communicator;
 using boost::mpicxx::graph_communicator;
 using namespace boost;
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::function_requires< IncidenceGraphConcept<graph_communicator> >();
   boost::function_requires< AdjacencyGraphConcept<graph_communicator> >();
@@ -94,8 +94,8 @@ int test_main(int argc, char* argv[])
 
   // The communicator's topology should have the same number of
   // vertices and edges and the original graph
-  BOOST_CHECK((int)num_vertices(graph) == num_vertices(graph_comm));
-  BOOST_CHECK((int)num_edges(graph) == num_edges(graph_comm));
+  check_test(world, (int)num_vertices(graph) == num_vertices(graph_comm));
+  check_test(world, (int)num_edges(graph) == num_edges(graph_comm));
 
   // Display the communicator graph
   if (graph_comm.rank() == 0) {
@@ -117,7 +117,7 @@ int test_main(int argc, char* argv[])
   // Verify the isomorphism
   if (graph_comm.rank() == 0)
     std::cout << "Verifying isomorphism..." << std::endl;
-  BOOST_CHECK(verify_isomorphism(graph, graph_comm, graph_alt_index));
+  check_test(world, verify_isomorphism(graph, graph_comm, graph_alt_index));
 
   return 0;
 }

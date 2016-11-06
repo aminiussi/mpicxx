@@ -8,16 +8,16 @@
 #include <boost/mpicxx/collectives/all_to_all.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
 #include <algorithm>
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/lexical_cast.hpp>
+#include "check_test.hpp"
+
 
 using boost::mpicxx::communicator;
-
 using boost::mpicxx::packed_skeleton_iarchive;
 using boost::mpicxx::packed_skeleton_oarchive;
 
@@ -42,7 +42,7 @@ all_to_all_test(const communicator& comm, Generator generator,
   all_to_all(comm, in_values, out_values);
 
   for (int p = 0; p < comm.size(); ++p) {
-    BOOST_CHECK(out_values[p] == generator((p + 1) * (comm.rank() + 1)));
+    check_test(comm, out_values[p] == generator((p + 1) * (comm.rank() + 1)));
   }
 
   if (comm.rank() == 0) {
@@ -99,7 +99,7 @@ struct string_list_generator
   }
 };
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
 

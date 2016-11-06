@@ -14,24 +14,23 @@
 #include <algorithm>
 #include <functional>
 
-#define BOOST_TEST_MODULE BoostMPI
-#include <boost/test/included/unit_test.hpp>
-
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/collectives.hpp>
 #include <boost/mpicxx/environment.hpp>
 #include <boost/mpicxx/cartesian_communicator.hpp>
 
+#include "check_test.hpp"
+
 namespace mpi = boost::mpicxx;
 
 
-BOOST_AUTO_TEST_CASE(cartesian_dimension_init)
+int main(int argc, char const* argv)
 {
   {
     // Check the basic ctor
     mpi::cartesian_dimension def;
     mpi::cartesian_topology t1(10);
-    BOOST_CHECK(t1.stl() == std::vector<mpi::cartesian_dimension>(10, def));
+    check_test(nocomm(), t1.stl() == std::vector<mpi::cartesian_dimension>(10, def));
   }
 #if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
   {
@@ -40,8 +39,8 @@ BOOST_AUTO_TEST_CASE(cartesian_dimension_init)
     bool per[] = {true, false, true};
     mpi::cartesian_topology t1(dims, per);
     mpi::cartesian_topology t2({{2,true},{3, false},{4, true}});
-    BOOST_CHECK(t1.size() == 3);
-    BOOST_CHECK(t1 == t2);
+    check_test(t1.size() == 3);
+    check_test(t1 == t2);
   }
 #endif
   // Container based ctor only available as a replacement for initializer list ctor
@@ -52,7 +51,7 @@ BOOST_AUTO_TEST_CASE(cartesian_dimension_init)
     std::copy(d, d+3, std::back_inserter(seq));
     mpi::cartesian_topology t1(seq);
     mpi::cartesian_topology t2(d);
-    BOOST_CHECK(t1 == t2);
+    check_test(nocomm(), t1 == t2);
   }
   {
     // Check range based with array based ctor.
@@ -61,8 +60,8 @@ BOOST_AUTO_TEST_CASE(cartesian_dimension_init)
     bool per[] = {true, false, true};
     mpi::cartesian_topology t1(dims, per);
     mpi::cartesian_topology t2(d);
-    BOOST_CHECK(t1.size() == 3);
-    BOOST_CHECK(t1 == t2);
+    check_test(nocomm(), t1.size() == 3);
+    check_test(nocomm(), t1 == t2);
   }
   {
     // Iterator based ctor vs C array based ctor
@@ -70,15 +69,15 @@ BOOST_AUTO_TEST_CASE(cartesian_dimension_init)
     std::vector<mpi::cartesian_dimension> vdims(d, d+3);
     mpi::cartesian_topology t1(vdims);
     mpi::cartesian_topology t2(d);
-    BOOST_CHECK(t1.size() == 3);
-    BOOST_CHECK(t1 == t2);
-    BOOST_CHECK(!(t1 != t2));
+    check_test(nocomm(), t1.size() == 3);
+    check_test(nocomm(), t1 == t2);
+    check_test(nocomm(), !(t1 != t2));
     t1[1].periodic = true;
-    BOOST_CHECK(t1 != t2);
+    check_test(nocomm(), t1 != t2);
     t1[2].periodic = false;
     t1[2].size = 0;
     vdims.push_back(mpi::cartesian_dimension(3, false));
     mpi::cartesian_topology t3(vdims);
-    BOOST_CHECK(t1 != t3);
+    check_test(nocomm(), t1 != t3);
   }
 }

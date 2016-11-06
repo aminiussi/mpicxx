@@ -8,7 +8,7 @@
 // content for data types.
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <boost/serialization/list.hpp>
 #include <boost/mpicxx/skeleton_and_content.hpp>
 #include <boost/mpicxx/nonblocking.hpp>
@@ -81,17 +81,17 @@ test_skeleton_and_content(const communicator& comm, int root,
     } else {
       broadcast(comm, skeleton(transferred_list), root);
     }
-    BOOST_CHECK((int)transferred_list.size() == list_size);
+    check_test(comm, (int)transferred_list.size() == list_size);
 
     // Receive the content and check it
     comm.recv(root, 1, get_content(transferred_list));
-    BOOST_CHECK(std::equal(make_counting_iterator(0),
+    check_test(comm, std::equal(make_counting_iterator(0),
                            make_counting_iterator(list_size),
                            transferred_list.begin()));
 
     // Receive the reversed content and check it
     comm.recv(root, 2, get_content(transferred_list));
-    BOOST_CHECK(std::equal(make_counting_iterator(0),
+    check_test(comm, std::equal(make_counting_iterator(0),
                            make_counting_iterator(list_size),
                            transferred_list.rbegin()));
   }
@@ -163,19 +163,19 @@ test_skeleton_and_content_nonblocking(const communicator& comm, int root)
     std::list<int> transferred_list;
     request req = comm.irecv(root, 0, skeleton(transferred_list));
     req.wait();
-    BOOST_CHECK((int)transferred_list.size() == list_size);
+    check_test(comm, (int)transferred_list.size() == list_size);
 
     // Receive the content and check it
     req = comm.irecv(root, 1, get_content(transferred_list));
     req.wait();
-    BOOST_CHECK(std::equal(make_counting_iterator(0),
+    check_test(comm, std::equal(make_counting_iterator(0),
                            make_counting_iterator(list_size),
                            transferred_list.begin()));
 
     // Receive the reversed content and check it
     req = comm.irecv(root, 2, get_content(transferred_list));
     req.wait();
-    BOOST_CHECK(std::equal(make_counting_iterator(0),
+    check_test(comm, std::equal(make_counting_iterator(0),
                            make_counting_iterator(list_size),
                            transferred_list.rbegin()));
   }
@@ -183,7 +183,7 @@ test_skeleton_and_content_nonblocking(const communicator& comm, int root)
   (comm.barrier)();
 }
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
 

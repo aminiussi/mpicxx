@@ -17,7 +17,7 @@
 #include <boost/mpicxx/environment.hpp>
 #include <boost/mpicxx/cartesian_communicator.hpp>
 
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 
 namespace mpi = boost::mpicxx;
 
@@ -53,7 +53,7 @@ void test_coordinates_consistency( mpi::cartesian_communicator const& cc,
                 min.data(), mpi::minimum<int>(), p);
     cc.barrier();
     if (p == cc.rank()) {
-      BOOST_CHECK(std::equal(coords.begin(), coords.end(), min.begin()));
+      check_test(cc, std::equal(coords.begin(), coords.end(), min.begin()));
       std::ostringstream out;
       out << "proc " << p << " at (";
       std::copy(min.begin(), min.end(), std::ostream_iterator<int>(out, " "));
@@ -113,7 +113,7 @@ void test_topology_consistency( mpi::cartesian_communicator const& cc)
   mpi::all_reduce(cc, 
                   &(itopo[0]), itopo.size(), &(otopo[0]),
                   topo_minimum());
-  BOOST_CHECK(std::equal(itopo.begin(), itopo.end(), otopo.begin()));
+  check_test(cc, std::equal(itopo.begin(), itopo.end(), otopo.begin()));
   if (master) {
     std::cout << "We agree on " << topology_description(otopo) << '\n';
   }
@@ -122,7 +122,7 @@ void test_topology_consistency( mpi::cartesian_communicator const& cc)
 
 void test_cartesian_topology( mpi::cartesian_communicator const& cc)
 {
-  BOOST_CHECK(cc.has_cartesian_topology());
+  check_test(cc, cc.has_cartesian_topology());
   for( int r = 0; r < cc.size(); ++r) {
     cc.barrier();
     if (r == cc.rank()) {
@@ -147,8 +147,8 @@ void test_cartesian_topology( mpi::communicator const& world, mpi::cartesian_top
 {
   mpi::cartesian_communicator cc(world, topo, true);
   if (cc) {
-    BOOST_CHECK(cc.has_cartesian_topology());
-    BOOST_CHECK(cc.ndims() == int(topo.size()));
+    check_test(world, cc.has_cartesian_topology());
+    check_test(world, cc.ndims() == int(topo.size()));
     if (cc.rank() == 0) {
       std::cout << "Asked topology " << topo << ", got " << cc.topology() << '\n';
     }
@@ -160,7 +160,7 @@ void test_cartesian_topology( mpi::communicator const& world, mpi::cartesian_top
   }
 }
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   mpi::environment env(argc, argv);
 

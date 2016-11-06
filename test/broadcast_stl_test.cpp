@@ -8,7 +8,7 @@
 #include <boost/mpicxx/collectives/broadcast.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 
 #include <algorithm>
 #include <vector>
@@ -37,7 +37,7 @@ broadcast_test(const mpi::communicator& comm, const T& bc_value,
   
   
   broadcast(comm, value, root);
-  BOOST_CHECK(value == bc_value);
+  check_test(comm, value == bc_value);
   if (comm.rank() == root) {
     if (value == bc_value) {
       std::cout << "OK." << std::endl;
@@ -58,7 +58,7 @@ broadcast_test(const mpi::communicator& comm, const T& bc_value,
   }
 }
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
 

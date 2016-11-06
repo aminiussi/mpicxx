@@ -6,7 +6,7 @@
 // A test of the sendrecv() operation.
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <vector>
 #include <algorithm>
 #include <boost/serialization/string.hpp>
@@ -48,10 +48,10 @@ void test_sendrecv(mpi::communicator& com) {
       std::cout << "rank " << wrank << " received " << recv << " from " << wprev << '\n';
     }
   }
-  BOOST_CHECK(recv == T(wprev));
+  check_test(com, recv == T(wprev));
 }
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   mpi::environment env(argc, argv);
   mpi::communicator world;

@@ -7,7 +7,7 @@
 
 // a test of pointer serialization
 #include <boost/mpicxx.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <boost/serialization/shared_ptr.hpp>
 
 class A
@@ -21,7 +21,7 @@ class A
   }
 };
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
   boost::mpicxx::communicator world;
@@ -37,7 +37,7 @@ int test_main(int argc, char* argv[])
     boost::shared_ptr<A> p;
     world.recv(0, 0, p);
     std::cout << p->i << std::endl;
-    BOOST_CHECK(p->i==42);
+    check_test(world, p->i==42);
   }
   return 0;
 }

@@ -14,6 +14,7 @@
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/lexical_cast.hpp>
 #include <numeric>
+#include "check_test.hpp"
 
 namespace mpi = boost::mpicxx;
 
@@ -74,17 +75,6 @@ namespace boost { namespace mpicxx {
   struct is_mpi_datatype<point> : public mpl::true_ { };
 
 } } // end namespace boost::mpicxx
-
-void
-check_test(mpi::communicator const& comm, bool cond) {
-  if (!cond) {
-    std::abort();
-  } else {
-    if (comm.rank() == 0) {
-      std::cout << "OK\n";
-    }
-  }
-}
 
 template<typename Generator, typename Op>
 void

@@ -8,7 +8,7 @@
 #include <boost/mpicxx/collectives/scan.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include <algorithm>
 #include <boost/serialization/string.hpp>
 #include <boost/iterator/counting_iterator.hpp>
@@ -82,7 +82,7 @@ scan_test(const communicator& comm, Generator generator,
 
   value_type result_value;
   scan(comm, value, result_value, op);
-  BOOST_CHECK(scan(comm, value, op) == result_value);
+  check_test(comm, scan(comm, value, op) == result_value);
 
   // Compute expected result
   std::vector<value_type> generated_values;
@@ -91,7 +91,7 @@ scan_test(const communicator& comm, Generator generator,
   std::vector<value_type> expected_results(comm.size());
   std::partial_sum(generated_values.begin(), generated_values.end(),
                    expected_results.begin(), op);
-  BOOST_CHECK(result_value == expected_results[comm.rank()]);
+  check_test(comm, result_value == expected_results[comm.rank()]);
   if (comm.rank() == 0) std::cout << "Done." << std::endl;
 
   (comm.barrier)();
@@ -190,7 +190,7 @@ struct is_commutative<std::plus<wrapped_int>, wrapped_int>
 
 } } // end namespace boost::mpicxx
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   using namespace boost::mpicxx;
   environment env(argc, argv);

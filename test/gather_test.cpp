@@ -9,7 +9,7 @@
 #include <boost/mpicxx/collectives/gatherv.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
@@ -44,9 +44,9 @@ gather_test(const communicator& comm, Generator generator,
       std::vector<value_type> expected_values;
       for (int p = 0; p < comm.size(); ++p)
         expected_values.push_back(generator(p));
-      BOOST_CHECK(values == expected_values);
+      check_test(comm, values == expected_values);
     } else {
-      BOOST_CHECK(values.empty());
+      check_test(comm, values.empty());
     }
   }
 
@@ -89,7 +89,7 @@ gatherv_test(const communicator& comm, Generator generator,
         for (int i = 0; i < p+1; ++i)
           expected_values.push_back(generator(p));
 
-      BOOST_CHECK(values == expected_values);
+      check_test(comm, values == expected_values);
     } else {
       gatherv(comm, myvalues, root);
     }
@@ -146,7 +146,7 @@ struct string_list_generator
   }
 };
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
 

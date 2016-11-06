@@ -8,13 +8,13 @@
 #include <boost/mpicxx/collectives/broadcast.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
 #include <algorithm>
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
 #include <boost/mpicxx/skeleton_and_content.hpp>
 #include <boost/iterator/counting_iterator.hpp>
+#include "check_test.hpp"
 //#include "debugger.hpp"
 
 using boost::mpicxx::communicator;
@@ -41,9 +41,7 @@ broadcast_test(const communicator& comm, const T& bc_value,
     }
 
     broadcast(comm, value, root);
-    BOOST_CHECK(value == bc_value);
-    if (comm.rank() == root && value == bc_value)
-      std::cout << "OK." << std::endl;
+    check_test(comm, value == bc_value);
   }
 
   (comm.barrier)();
@@ -106,21 +104,21 @@ test_skeleton_and_content(const communicator& comm, int root = 0)
     // right structure (we have no idea what the data will be).
     std::list<int> transferred_list;
     ia >> transferred_list;
-    BOOST_CHECK((int)transferred_list.size() == list_size);
+    check_test(comm, int(transferred_list.size()) == list_size);
 
     // Receive the content and check it
     broadcast(comm, get_content(transferred_list), root);
     bool list_content_ok = std::equal(make_counting_iterator(0),
 				      make_counting_iterator(list_size),
 				      transferred_list.begin());
-    BOOST_CHECK(list_content_ok);
+    check_test(comm, list_content_ok);
 
     // Receive the reversed content and check it
     broadcast(comm, get_content(transferred_list), root);
     bool rlist_content_ok = std::equal(make_counting_iterator(0),
 				       make_counting_iterator(list_size),
 				       transferred_list.rbegin());
-    BOOST_CHECK(rlist_content_ok);
+    check_test(comm, rlist_content_ok);
     if (!(list_content_ok && rlist_content_ok)) {
       if (comm.rank() == 1) {
 	std::cout
@@ -133,7 +131,7 @@ test_skeleton_and_content(const communicator& comm, int root = 0)
   (comm.barrier)();
 }
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
 

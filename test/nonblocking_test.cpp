@@ -8,7 +8,7 @@
 #include <boost/mpicxx/nonblocking.hpp>
 #include <boost/mpicxx/communicator.hpp>
 #include <boost/mpicxx/environment.hpp>
-#include <boost/test/minimal.hpp>
+#include "check_test.hpp"
 #include "gps_position.hpp"
 #include <boost/lexical_cast.hpp>
 #include <boost/serialization/string.hpp>
@@ -193,7 +193,7 @@ nonblocking_test(const communicator& comm, const T* values, int num_values,
     break;
     
   default:
-    BOOST_CHECK(false);
+    check_test(comm, false);
   }
   
   if (comm.rank() == 0) {
@@ -213,14 +213,14 @@ nonblocking_test(const communicator& comm, const T* values, int num_values,
       std::cerr << "ERROR!" << std::endl;
   }
   
-  BOOST_CHECK(incoming_value == values[0]);
+  check_test(comm, incoming_value == values[0]);
   
   if (method != mk_wait_any && method != mk_test_any)
-    BOOST_CHECK(std::equal(incoming_values.begin(), incoming_values.end(),
-                           values));
+    check_test(comm, std::equal(incoming_values.begin(), incoming_values.end(),
+                                values));
 }
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   boost::mpicxx::environment env(argc, argv);
 
