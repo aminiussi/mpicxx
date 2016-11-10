@@ -5,8 +5,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // Message Passing Interface 1.1 -- Section 4.4. Broadcast
-#ifndef BOOST_MPI_BROADCAST_HPP
-#define BOOST_MPI_BROADCAST_HPP
+#ifndef BOOST_MPI_COLL_BROADCAST_HPP
+#define BOOST_MPI_COLL_BROADCAST_HPP
 
 #include <boost/mpicxx/collectives_fwd.hpp>
 #include <boost/mpicxx/exception.hpp>
@@ -155,4 +155,4 @@ void broadcast(const communicator& comm, T* values, int n, int root)
 #  include <boost/mpicxx/detail/broadcast_sc.hpp>
 #endif
 
-#endif // BOOST_MPI_BROADCAST_HPP
+#endif // BOOST_MPI_COLL_BROADCAST_HPP

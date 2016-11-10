@@ -5,8 +5,8 @@
 
 // Authors: Alain Miniussi
 
-#ifndef BOOST_MPI_IBROADCAST_HPP
-#define BOOST_MPI_IBROADCAST_HPP
+#ifndef BOOST_MPI_COLL_IBROADCAST_HPP
+#define BOOST_MPI_COLL_IBROADCAST_HPP
 
 #include  <boost/mpicxx/collectives/broadcast.hpp>
 #include  <boost/mpicxx/request.hpp>
@@ -259,5 +259,4 @@ request ibroadcast(const communicator& comm, std::vector<T>& values, int root)
 }
 
 }}
-#endif // BOOST_MPI_IBROADCAST_HPP
-
+#endif // BOOST_MPI_COLL_IBROADCAST_HPP
